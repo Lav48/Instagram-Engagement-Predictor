@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Instagram Engagement Predictor</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📸 Instagram Engagement Predictor</h1>
+
+    <p class="subtitle">
+        Predict Likes, Engagement Rate and Rank using Machine Learning
+    </p>
+
+    <form action="/predict" method="POST">
+
+        <div class="grid">
+
+            <div>
+                <label>Post Type</label>
+
+                <select name="post_type">
+
+                    <option value="0">Image</option>
+
+                    <option value="1">Video</option>
+
+                    <option value="2">Carousel</option>
+
+                </select>
+            </div>
+
+            <div>
+
+                <label>Comments</label>
+
+                <input
+                    type="number"
+                    name="comments"
+                    required>
+
+            </div>
+
+            <div>
+
+                <label>Following</label>
+
+                <input
+                    type="number"
+                    name="following"
+                    required>
+
+            </div>
+
+            <div>
+
+                <label>Followers</label>
+
+                <input
+                    type="number"
+                    name="followers"
+                    required>
+
+            </div>
+
+            <div>
+
+                <label>Number of Posts</label>
+
+                <input
+                    type="number"
+                    name="num_posts"
+                    required>
+
+            </div>
+
+            <div>
+
+                <label>Business Account</label>
+
+                <select name="is_business_account">
+
+                    <option value="0">No</option>
+
+                    <option value="1">Yes</option>
+
+                </select>
+
+            </div>
+
+            <div>
+
+                <label>Language</label>
+
+                <select name="lang">
+
+                    <option value="0">English</option>
+
+                    <option value="1">Hindi</option>
+
+                    <option value="2">Other</option>
+
+                </select>
+
+            </div>
+
+            <div>
+
+                <label>Description Category</label>
+
+                <select name="description_category">
+
+                    <option value="0">Travel</option>
+
+                    <option value="1">Food</option>
+
+                    <option value="2">Fashion</option>
+
+                    <option value="3">Lifestyle</option>
+
+                    <option value="4">Other</option>
+
+                </select>
+
+            </div>
+
+            <div>
+
+                <label>Description Grade (1-10)</label>
+
+                <input
+                    type="number"
+                    name="description_grade"
+                    min="1"
+                    max="10"
+                    required>
+
+            </div>
+
+            <div>
+
+                <label>Image Grade (1-10)</label>
+
+                <input
+                    type="number"
+                    name="image_grade"
+                    min="1"
+                    max="10"
+                    required>
+
+            </div>
+
+            <div>
+
+                <label>Caption Length</label>
+
+                <input
+                    type="number"
+                    name="caption_length"
+                    required>
+
+            </div>
+
+            <div>
+
+                <label>Word Count</label>
+
+                <input
+                    type="number"
+                    name="word_count"
+                    required>
+
+            </div>
+
+            <div>
+
+                <label>Hashtag Count</label>
+
+                <input
+                    type="number"
+                    name="hashtag_count"
+                    required>
+
+            </div>
+
+            <div>
+
+                <label>Mention Count</label>
+
+                <input
+                    type="number"
+                    name="mention_count"
+                    required>
+
+            </div>
+
+        </div>
+
+        <button type="submit">
+            Predict
+        </button>
+
+    </form>
+
+    {% if predicted_likes %}
+
+    <div class="result">
+
+        <h2>Prediction Result</h2>
+
+        <p>
+            ❤️ Predicted Likes :
+            <strong>{{ predicted_likes }}</strong>
+        </p>
+
+        <p>
+            📈 Engagement Rate :
+            <strong>{{ engagement_rate }}%</strong>
+        </p>
+
+        <p>
+            🏆 Rank :
+            <strong>{{ rank }}</strong>
+        </p>
+
+    </div>
+
+    {% endif %}
+
+    {% if error %}
+
+    <div class="error">
+
+        <strong>Error:</strong>
+
+        {{ error }}
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+<div>
+    {% if feature_chart %}
+
+<div class="chart-container">
+
+    <h2>📊 Feature Importance</h2>
+
+    {{ feature_chart|safe }}
+
+</div>
+
+{% endif %}
+</div>
+
+</body>
+
+</html>
